@@ -1,16 +1,16 @@
 class Demo1 extends AdventureScene {
     constructor() {
-        super("demo1", "First Room");
+        super("demo1", "Dungeon Entrance");
     }
 
     onEnter() {
 
-        let clip = this.add.text(this.w * 0.3, this.w * 0.3, "📎 paperclip")
+        let list = this.add.text(this.w * 0.3, this.w * 0.3, "📝 grocery list")
             .setFontSize(this.s * 2)
             .setInteractive()
-            .on('pointerover', () => this.showMessage("Metal, bent."))
+            .on('pointerover', () => this.showMessage("Hmm, someone's grocery list..click to read"))
             .on('pointerdown', () => {
-                this.showMessage("No touching!");
+                this.showMessage("-Milk\n-Eggs\n-Butter\nInteresting..");
                 this.tweens.add({
                     targets: clip,
                     x: '+=' + this.s,
@@ -21,41 +21,15 @@ class Demo1 extends AdventureScene {
                 });
             });
 
-        let key = this.add.text(this.w * 0.5, this.w * 0.1, "🔑 key")
+        let door = this.add.text(this.w * 0.1, this.w * 0.15, "🚪 Door")
             .setFontSize(this.s * 2)
             .setInteractive()
             .on('pointerover', () => {
-                this.showMessage("It's a nice key.")
+                this.showMessage("Click to Progress.");
             })
             .on('pointerdown', () => {
-                this.showMessage("You pick up the key.");
-                this.gainItem('key');
-                this.tweens.add({
-                    targets: key,
-                    y: `-=${2 * this.s}`,
-                    alpha: { from: 1, to: 0 },
-                    duration: 500,
-                    onComplete: () => key.destroy()
-                });
-            })
-
-        let door = this.add.text(this.w * 0.1, this.w * 0.15, "🚪 locked door")
-            .setFontSize(this.s * 2)
-            .setInteractive()
-            .on('pointerover', () => {
-                if (this.hasItem("key")) {
-                    this.showMessage("You've got the key for this door.");
-                } else {
-                    this.showMessage("It's locked. Can you find a key?");
-                }
-            })
-            .on('pointerdown', () => {
-                if (this.hasItem("key")) {
-                    this.loseItem("key");
                     this.showMessage("*squeak*");
-                    door.setText("🚪 unlocked door");
                     this.gotoScene('demo2');
-                }
             })
 
     }
@@ -63,42 +37,63 @@ class Demo1 extends AdventureScene {
 
 class Demo2 extends AdventureScene {
     constructor() {
-        super("demo2", "The second room has a long name (it truly does).");
+        super("demo2", "Dungeon Tunnel");
+    }
+    onEnter() {
+        this.add.text(this.w * 0.17, this.w * 0.1, "You come to a divide in the road...")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("Choose wisely..");
+            })
+
+        let leftPath = this.add.text(this.w * 0.15, this.w * 0.2, 'Left Path ⬅️')
+        .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage('Walk down the left path');
+            })
+            .on('pointerdown', () => this.gotoScene('Demo3'));
+
+        let rightPath = this.add.text(this.w * 0.45, this.w * 0.2, '➡️ Right Path')
+        .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage('Walk down the right path');
+            })
+            .on('pointerdown', () => this.gotoScene('Demo3'));
+    }
+}
+
+class Demo3 extends AdventureScene {
+    constructor() {
+        super("demo3", "Dungeon Tunnel");
     }
     onEnter() {
         this.add.text(this.w * 0.3, this.w * 0.4, "just go back")
             .setFontSize(this.s * 2)
             .setInteractive()
             .on('pointerover', () => {
-                this.showMessage("You've got no other choice, really.");
+                this.showMessage("Choose wisely..");
             })
-            .on('pointerdown', () => {
-                this.gotoScene('demo1');
-            });
 
-        let finish = this.add.text(this.w * 0.6, this.w * 0.2, '(finish the game)')
+        let leftPath = this.add.text(this.w * 0.6, this.w * 0.2, '⬅️Left Path')
             .setInteractive()
             .on('pointerover', () => {
-                this.showMessage('*giggles*');
-                this.tweens.add({
-                    targets: finish,
-                    x: this.s + (this.h - 2 * this.s) * Math.random(),
-                    y: this.s + (this.h - 2 * this.s) * Math.random(),
-                    ease: 'Sine.inOut',
-                    duration: 500
-                });
+                this.showMessage('Walk down the left path');
             })
-            .on('pointerdown', () => this.gotoScene('outro'));
+            .on('pointerdown', () => this.gotoScene('Demo3'));
     }
 }
+
 
 class Intro extends Phaser.Scene {
     constructor() {
         super('intro')
     }
     create() {
-        this.add.text(50,50, "Adventure awaits!").setFontSize(50);
-        this.add.text(50,100, "Click anywhere to begin.").setFontSize(20);
+        this.add.text(50,50, "You've arrived at your destination, but you're confused...\nThis is not the grocery store...").setFontSize(50);
+        this.add.text(50,150, "Click anywhere to begin.").setFontSize(20);
         this.input.on('pointerdown', () => {
             this.cameras.main.fade(1000, 0,0,0);
             this.time.delayedCall(1000, () => this.scene.start('demo1'));
