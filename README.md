@@ -1,21 +1,20 @@
-A simple adventure game by {who?} based on a simple adventure game engine by [Adam Smith](https://github.com/rndmcnlly).
+A simple adventure game by Jalen Suwa based on a simple adventure game engine by [Adam Smith](https://github.com/rndmcnlly).
 
 Code requirements:
-- **4+ scenes based on `AdventureScene`**: unsatisfied (name at least 4 of the classes).
-- **2+ scenes *not* based on `AdventureScene`**: unsatisfied (name the classes).
+- **4+ scenes based on `AdventureScene`**: Dungeon Entrance, Dungeon Tunnel, Secret Stash, Witch's Lair, Treasure Room..
+- **2+ scenes *not* based on `AdventureScene`**: Treasure Room, Dungeon Tunnel.
 - **2+ methods or other enhancement added to the adventure game engine to simplify my scenes**:
-    - Enhancement 1: unsatisfied (name the method and explain the use of it).
-    - Enhancement 2: unsatisfied (name the method and explain the use of it).
+    - showTitleMessage: used to show a message in the right bar and keep it there as long as the user is in that room
 
 Experience requirements:
-- **4+ locations in the game world**: unsatisfied (name at least 4 of the classes).
-- **2+ interactive objects in most scenes**: unsatisfied (describe two examples)
-- **Many objects have `pointerover` messages**: unsatisfied (describe two examples)
-- **Many objects have `pointerdown` effects**: unsatisfied (describe two examples)
-- **Some objects are themselves animated**: unsatisfied (describe two examples)
+- **4+ locations in the game world**: Dungeon Entrance, Dungeon Tunnel, Secret Stash, Witch's Lair, Treasure Room.
+- **2+ interactive objects in most scenes**: 2 Examples include the witch (she disappears and reappears in a random location) the other example is the bucket, it has a pick up animation and is tracked by the inventory.
+- **Many objects have `pointerover` messages**: every object in the game has a pointerover message
+- **Many objects have `pointerdown` effects**: when clicked, obtainable items have animations, when the witch is clicked and she dies then she has a death animation.
+- **Some objects are themselves animated**: the witch moves when moused over, items that are obtainable move.
 
 Asset sources:
-- (For each image/audio/video asset used, describe how it was created. What tool did you use to create it? Was it based on another work? If so, how did you change it, and where can we learn more about the original work for comparison? Use [Markdown link syntax](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#links).)
+- All images used were emojis
 
 Code sources:
 - `adventure.js` and `index.html` were created for this project [Adam Smith](https://github.com/rndmcnlly) and edited by me.
