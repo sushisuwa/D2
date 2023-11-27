@@ -93,6 +93,23 @@ class Demo3 extends AdventureScene {
                 this.showMessage("This is a dead end...click to go back");
             })
             .on('pointerdown', () => this.gotoScene('demo2'));
+
+        let gold = this.add.text(this.w * 0.12, this.w * 0.35, "💰 gold")
+        .setFontSize(this.s * 2)
+        .setInteractive()
+        .on('pointerover', () => {
+            this.showMessage("Ooo, I could use this later to buy more groceries");
+        })
+        .on('pointerdown', () => {
+            this.gainItem('gold');
+            this.tweens.add({
+                targets: gold,
+                y: `-=${2 * this.s}`,
+                alpha: { from: 1, to: 0 },
+                duration: 500,
+                onComplete: () => gold.destroy()
+            });
+        })
     }
 }
 
@@ -101,7 +118,7 @@ class Demo4 extends AdventureScene {
         super("demo4", "Witch's Lair");
     }
     onEnter() {
-        let witch = this.add.text(this.w * 0.3, this.w * 0.25, "witch")
+        let witch = this.add.text(this.w * 0.3, this.w * 0.25, "🧙‍♀️ witch")
             .setFontSize(this.s * 2)
             .setInteractive()
             .on('pointerover', () => {
@@ -135,6 +152,23 @@ class Demo4 extends AdventureScene {
                     this.gotoScene('bad');
                 }
             })
+
+        let hammer = this.add.text(this.w * 0.12, this.w * 0.35, "🔨 hammer")
+        .setFontSize(this.s * 2)
+        .setInteractive()
+        .on('pointerover', () => {
+            this.showMessage("Click to pick up the hammer");
+        })
+        .on('pointerdown', () => {
+            this.gainItem('hammer');
+            this.tweens.add({
+                targets: hammer,
+                y: `-=${2 * this.s}`,
+                alpha: { from: 1, to: 0 },
+                duration: 500,
+                onComplete: () => hammer.destroy()
+            });
+        })
     }
 }
 
@@ -176,7 +210,7 @@ class Good extends Phaser.Scene {
     }
     create() {
         this.add.text(50, 50, "After picking up the treasure you teleported outside the cave! \nWell, now I need to find the store").setFontSize(50);
-        this.add.text(50, 100, "Click anywhere to restart.").setFontSize(20);
+        this.add.text(50, 150, "Click anywhere to restart.").setFontSize(20);
         this.input.on('pointerdown', () => this.scene.start('intro'));
     }
 }
@@ -186,8 +220,9 @@ class Bad extends Phaser.Scene {
         super('bad');
     }
     create() {
-        this.add.text(50, 50, "You tried to fight the witch with nothing\nShe turned you into a frog...").setFontSize(50);
-        this.add.text(50, 150, "Click anywhere to restart.").setFontSize(20);
+        this.add.text(50, 50, "You tried to fight the witch and failed...\nShe turned you into a frog...").setFontSize(50);
+        this.add.text(50, 150, "Hmm maybe theres something better I can use.").setFontSize(20);
+        this.add.text(50, 200, "Click anywhere to restart.").setFontSize(20);
         this.input.on('pointerdown', () => this.scene.start('intro'));
     }
 }
